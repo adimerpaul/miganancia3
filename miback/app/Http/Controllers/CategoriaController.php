@@ -1,0 +1,91 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Categoria;
+use App\Http\Requests\StoreCategoriaRequest;
+use App\Http\Requests\UpdateCategoriaRequest;
+use Illuminate\Http\Request;
+
+class CategoriaController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index(Request $request)
+    {
+        return Categoria::where('negocio_id',$request->user()->minegocio)->get();
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \App\Http\Requests\StoreCategoriaRequest  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(StoreCategoriaRequest $request)
+    {
+        Categoria::create($request->all());
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Categoria  $categoria
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Categoria $categoria)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\Categoria  $categoria
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Categoria $categoria)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \App\Http\Requests\UpdateCategoriaRequest  $request
+     * @param  \App\Models\Categoria  $categoria
+     * @return \Illuminate\Http\Response
+     */
+    public function update(UpdateCategoriaRequest $request, Categoria $categoria)
+    {
+//        return $request;
+        $categoria=Categoria::find($request->id);
+        return $categoria->update($request->all());
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Categoria  $categoria
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($categoria_id)
+    {
+//        return $categoria;
+        $categoria=Categoria::find($categoria_id);
+        $categoria->delete();
+    }
+}
